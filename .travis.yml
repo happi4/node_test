@@ -1,0 +1,16 @@
+sudo: required
+services:
+  - docker
+
+script:
+  - docker build -t happi4/node .
+  - docker image happi4/node
+
+before_deploy:
+  - docker login -u happi4 -p <docker_password>
+
+deploy:
+  provider: script
+  script: docker push happi4/node
+  on:
+    branch: master
